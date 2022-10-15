@@ -49,5 +49,15 @@ if [[ -z $(type -P curl) ]]; then
 fi
 
 instnaive(){
-    echo ""
+    if [[ -z $(type -P go) ]]; then
+        if [[ $SYSTEM == "CentOS" ]]; then
+            ${PACKAGE_INSTALL[int]} golang
+        else
+            ${PACKAGE_UPDATE[int]}
+            ${PACKAGE_INSTALL[int]} golang-go
+        fi
+    fi
+    go env -w GO111MODULE=on
+    go install github.com/caddyserver/xcaddy/cmd/xcaddy@latest
+    ~/go/bin/xcaddy build --with github.com/caddyserver/forwardproxy@caddy2=github.com/klzgrad/forwardproxy@naive
 }
