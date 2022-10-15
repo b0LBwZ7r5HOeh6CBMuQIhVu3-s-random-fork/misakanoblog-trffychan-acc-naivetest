@@ -64,7 +64,7 @@ instnaive(){
     mv ./caddy /opt/naive/caddy
     cat << EOF >/opt/naive/Caddyfile
 :443, naive.buliang0.tk
-tls example@example.com
+tls admin@seewo.com
 route {
  forward_proxy {
    basic_auth user pass
