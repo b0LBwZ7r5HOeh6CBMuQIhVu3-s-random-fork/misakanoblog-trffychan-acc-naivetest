@@ -78,4 +78,5 @@ route {
   }
 }
 EOF
+    /opt/naive/caddy start
 }
