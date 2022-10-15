@@ -62,4 +62,20 @@ instnaive(){
     ~/go/bin/xcaddy build --with github.com/caddyserver/forwardproxy@caddy2=github.com/klzgrad/forwardproxy@naive
     mkdir /opt/naive
     mv ./caddy /opt/naive/caddy
+    cat << EOF >/opt/naive/Caddyfile
+:443, naive.buliang0.tk
+tls example@example.com
+route {
+ forward_proxy {
+   basic_auth user pass
+   hide_ip
+   hide_via
+   probe_resistance
+  }
+ reverse_proxy  https://demo.cloudreve.org  {
+   header_up  Host  {upstream_hostport}
+   header_up  X-Forwarded-Host  {host}
+  }
+}
+EOF
 }
